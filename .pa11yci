@@ -1,0 +1,10 @@
+{
+    "defaults": {
+        "wait": 5000,
+        "standard": "Section508",
+        "chromeLaunchConfig": {
+            "args": ["--no-sandbox"],
+            "executablePath": "/usr/bin/chromium"
+        }
+    }
+}
