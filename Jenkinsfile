@@ -5,10 +5,9 @@
 def shipyardBuildBadge = addEmbeddableBadgeConfiguration(id: "shipyard-build", subject: "Shipyard Build")
 
 pipeline {
-// Use Maven container to run pipeline stages
     agent {
-        docker {
-            image 'maven:3.6.2-jdk-13'
+        node {
+            label 'build'
         }
     }
 // Location for setting global environment variables
@@ -30,12 +29,24 @@ pipeline {
     stages {
 // Clear any previously compiled files, then compile and package artifact
         stage('Build') {
+            // Use Maven container to run pipeline stages
+            agent {
+                docker {
+                    image 'maven:3.6.2-jdk-13'
+                }
+            }
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
 // Run any defined unit tests
         stage('Unit Testing') {
+            // Use Maven container to run pipeline stages
+            agent {
+                docker {
+                    image 'maven:3.6.2-jdk-13'
+                }
+            }
             steps {
                 sh 'mvn test'
             }
@@ -77,6 +88,12 @@ pipeline {
         }
 // Trigger an integrity scan from Sonarqube's server. The detailed results will be available in your Sonarqube dashboard
         stage('Sonarqube Analysis') {
+            // Use Maven container to run pipeline stages
+            agent {
+                node {
+                    label 'master'
+                }
+            }
             environment {
                 scannerHome = tool 'cynerge-sonarqube'
             }
@@ -92,6 +109,12 @@ pipeline {
         }
 // Store your build artifact in a Nexus Repository. The delivery script will largely differ with app type
         stage('Store Maven Artifact') {
+            // Use Maven container to run pipeline stages
+            agent {
+                docker {
+                    image 'maven:3.6.2-jdk-13'
+                }
+            }
             environment { 
                 MAVEN_USER = credentials('nexus-user')
                 MAVEN_PASS = credentials('nexus-pass')
