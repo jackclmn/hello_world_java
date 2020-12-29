@@ -19,7 +19,7 @@ pipeline {
         STATUS_SUCCESS = ''
         //JENKINS_URL = "${JENKINS_URL}"
         JOB_NAME = "${JOB_NAME}"
-        SONAR_TOKEN = credentials('shipyard-sonarqube')
+        SONAR_TOKEN = credentials('sonarqube-token')
         SONAR_PROJECT = 'hello-world-java'
         SONAR_REPORTS = 'target/surefire-reports'
         JACOCO_REPORT = "$WORKSPACE/tests/target/site/jacoco-aggregate/jacoco.xml"
