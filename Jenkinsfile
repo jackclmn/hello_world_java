@@ -90,8 +90,8 @@ pipeline {
         stage('Sonarqube Analysis') {
             // Use Maven container to run pipeline stages
             agent {
-                node {
-                    label 'master'
+                docker {
+                    image 'maven:3.6.2-jdk-13'
                 }
             }
             environment {
