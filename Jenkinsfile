@@ -17,7 +17,7 @@ pipeline {
         NEXUS_USER = credentials('nexus-user') // pre-built into Shipyard
         NEXUS_PASS = credentials('nexus-pass') // pre-built into Shipyard
         STATUS_SUCCESS = ''
-        JENKINS_URL = "${JENKINS_URL}"
+        //JENKINS_URL = "${JENKINS_URL}"
         JOB_NAME = "${JOB_NAME}"
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'hello-world-java'
